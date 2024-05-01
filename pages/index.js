@@ -29,18 +29,17 @@ export default function Home() {
     // Add your download logic here
   }
 
-  function copyToClipboard() {
-    navigator.clipboard.writeText(dynamicUrl).then(
-      () => {
-        console.log('URL copied to clipboard');
-        shortenUrl(dynamicUrl);
-        // Optionally show a success message or perform other actions
-      },
-      err => {
-        console.error('Error copying URL to clipboard:', err);
-        // Optionally show an error message
-      }
-    );
+  async function copyToClipboard() {
+    try {
+      await navigator.clipboard.writeText(dynamicUrl);
+      console.log('URL copied to clipboard');
+      // Shorten the copied URL
+      await shortenUrl(dynamicUrl);
+      // Optionally show a success message or perform other actions
+    } catch (err) {
+      console.error('Error copying URL to clipboard:', err);
+      // Optionally show an error message
+    }
   }
 
   return (
@@ -66,6 +65,12 @@ export default function Home() {
                   Copy URL
                 </Button>
               </p>
+              {shortenedUrl && (
+                <Message positive>
+                  <Message.Header>Shortened URL:</Message.Header>
+                  <a href={shortenedUrl} target="_blank" rel="noopener noreferrer">{shortenedUrl}</a>
+                </Message>
+              )}
               <p>
                 You can use the above m3u URL in OTT Navigator app to watch all channels.
               </p>
