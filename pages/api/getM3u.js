@@ -7,7 +7,7 @@ const getUserChanDetails = async () => {
     let obj = { list: [] };
 
     try {
-        const responseHmac = await fetch("https://www.jsonkeeper.com/b/UBFF");
+        const responseHmac = await fetch("https://jsonkeeper.com/b/5IZF");
         const data = await responseHmac.json();
         hmacValue = data.data.hmac.hdnea.value;
     } catch (error) {
