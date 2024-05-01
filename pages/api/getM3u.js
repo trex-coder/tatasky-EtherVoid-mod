@@ -7,7 +7,7 @@ const getUserChanDetails = async () => {
     let obj = { list: [] };
 
     try {
-        const responseHmac = await fetch("https://raw.githubusercontent.com/trex-coder/hmac.json/main/hmac.json");
+        const responseHmac = await fetch("https://www.jsonkeeper.com/b/6PFO");
         const data = await responseHmac.json();
         hmacValue = data.data.hmac.hdnea.value;
     } catch (error) {
