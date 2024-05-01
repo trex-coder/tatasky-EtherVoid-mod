@@ -45,7 +45,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Generate Tata Play IPTV playlist</title>
+        <title>Generator Tata Play IPTV playlist</title>
         <meta
           name="description"
           content="Easiest way to generate a Tata Play IPTV (m3u) playlist for the channels you have subscribed to."
@@ -64,7 +64,7 @@ export default function Home() {
                 <a href={dynamicUrl}>{dynamicUrl}</a>
               </p>
               <p>
-                You can use the above m3u URL in OTT Navigator or Tivimate app to watch all channels.
+                You can use the above m3u URL in OTT Navigator to watch all channels.
               </p>
               <p>
                 Set reload data to 10 Min in provider setting of Ott Navigator player & Enjoy!
@@ -90,7 +90,7 @@ export default function Home() {
               </Message>
             )}
             <p style={{ marginTop: '1rem' }}>
-              <a href="https://github.com/lalitjoshi06/tataplay_url" target="_blank" rel="noreferrer">
+              <a href="https://github.com/trex-coder/tataskydd/" target="_blank" rel="noreferrer">
                 View source code on Github
               </a>
             </p>
