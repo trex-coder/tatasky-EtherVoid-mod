@@ -79,18 +79,16 @@ export default function Home() {
                 </Button>
               </p>
               <p>
-                You can use the above m3u URL in OTT Navigator or Tivimate app to watch all channels.
+                You can use the above m3u URL in OTT Navigator app to watch all channels.
               </p>
-              <p>
-                Set reload data to 10 Min in provider setting of Ott Navigator player & Enjoy!
-              </p>
-              <Message.Header>You cannot generate a permanent m3u file URL on localhost but you can download your m3u file:</Message.Header>
+              
+             <Message.Header>You cannot generate a permanent m3u file URL on localhost but you can download your m3u file:</Message.Header>
               <p>
                 <Button primary onClick={() => downloadM3uFile('ts.m3u')} loading={downloading}>
                   Download m3u file
                 </Button>
               </p>
-              <p>The downloaded m3u file will be valid only for 10 Minutes.</p>
+              <p>The downloaded m3u file will be valid only for unlimited time.</p>
               {/* Donation Button */}
               <p>
                 <Button color='yellow' onClick={() => window.open('upi://pay?pa=babidawka@okhdfdbank')}>
