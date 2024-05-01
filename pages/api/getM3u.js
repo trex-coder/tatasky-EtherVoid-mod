@@ -1,5 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
 import fetch from "cross-fetch";
 
 const getUserChanDetails = async () => {
@@ -72,6 +70,15 @@ const generateM3u = async (ud) => {
     console.log('all done!');
     return m3uStr;
 };
+
+const refreshPlaylist = async () => {
+    const intervalMs = 10 * 60 * 1000; // 10 minutes
+    setInterval(async () => {
+        await getUserChanDetails(); // Refresh HMAC token
+    }, intervalMs);
+};
+
+refreshPlaylist(); // Start refreshing the playlist automatically
 
 export default async function handler(req, res) {
     let uData = {
