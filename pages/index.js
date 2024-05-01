@@ -42,10 +42,23 @@ export default function Home() {
       });
   }
 
+  function copyToClipboard() {
+    navigator.clipboard.writeText(dynamicUrl).then(
+      () => {
+        console.log('URL copied to clipboard');
+        // Optionally show a success message or perform other actions
+      },
+      err => {
+        console.error('Error copying to clipboard:', err);
+        // Optionally show an error message
+      }
+    );
+  }
+
   return (
     <div>
       <Head>
-        <title>Generator Tata Play IPTV playlist</title>
+        <title>Generate Tata Play IPTV playlist</title>
         <meta
           name="description"
           content="Easiest way to generate a Tata Play IPTV (m3u) playlist for the channels you have subscribed to."
@@ -61,10 +74,12 @@ export default function Home() {
               <Message.Header>Dynamic URL to get m3u:</Message.Header>
               <img src={`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(dynamicUrl)}&size=small`} alt="QR Code" />
               <p>
-                <a href={dynamicUrl}>{dynamicUrl}</a>
+                <Button primary onClick={copyToClipboard}>
+                  Copy URL
+                </Button>
               </p>
               <p>
-                You can use the above m3u URL in OTT Navigator to watch all channels.
+                You can use the above m3u URL in OTT Navigator or Tivimate app to watch all channels.
               </p>
               <p>
                 Set reload data to 10 Min in provider setting of Ott Navigator player & Enjoy!
@@ -90,7 +105,7 @@ export default function Home() {
               </Message>
             )}
             <p style={{ marginTop: '1rem' }}>
-              <a href="https://github.com/trex-coder/tataskydd/" target="_blank" rel="noreferrer">
+              <a href="https://github.com/lalitjoshi06/tataplay_url" target="_blank" rel="noreferrer">
                 View source code on Github
               </a>
             </p>
