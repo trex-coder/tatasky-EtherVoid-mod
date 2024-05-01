@@ -76,6 +76,12 @@ export default function Home() {
                 </Button>
               </p>
               <p>The downloaded m3u file will be valid only for 10 Minutes.</p>
+              {/* Donation Button */}
+              <p>
+                <Button color='yellow' onClick={() => window.open('upi://pay?pa=babidawka@okhdfdbank')}>
+                  Donate via UPI
+                </Button>
+              </p>
             </Message>
             {err && (
               <Message negative>
