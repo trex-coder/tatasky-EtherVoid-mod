@@ -1,55 +1,43 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Button, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import Axios from 'axios';
 
 export default function Home() {
   const [dynamicUrl, setDynamicUrl] = useState('');
   const [downloading, setDownloading] = useState(false);
-  const [err, setErr] = useState('');
+  const [shortenedUrl, setShortenedUrl] = useState('');
+  const [shorteningError, setShorteningError] = useState('');
 
   useEffect(() => {
     const url = `${window.location.origin.replace('localhost', '127.0.0.1')}/api/getM3u?sid=tplay_A&id=123456789&sname=tataP&tkn=xeotpxyastrplg`;
     setDynamicUrl(url);
   }, []);
 
+  async function shortenUrl(originalUrl) {
+    try {
+      const response = await Axios.get(`https://ulvis.net/api.php?url=${encodeURIComponent(originalUrl)}&type=json&private=1`);
+      setShortenedUrl(response.data.short);
+    } catch (error) {
+      console.error('Error shortening URL:', error);
+      setShorteningError('Error shortening URL. Please try again.');
+    }
+  }
+
   function downloadM3uFile(filename) {
     setDownloading(true);
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
-
-    fetch(`${window.location.origin}/api/getM3u?sid=tplay_A&id=123456789&sname=tataP&tkn=xeotpxyastrplg`, requestOptions)
-      .then(response => response.text())
-      .then(result => {
-        const data = result;
-        const blob = new Blob([data], { type: 'text/plain' });
-        if (window.navigator.msSaveOrOpenBlob) {
-          window.navigator.msSaveBlob(blob, filename);
-        } else {
-          const elem = window.document.createElement('a');
-          elem.href = window.URL.createObjectURL(blob);
-          elem.download = filename;
-          document.body.appendChild(elem);
-          elem.click();
-          document.body.removeChild(elem);
-        }
-        setDownloading(false);
-      })
-      .catch(error => {
-        console.error('Error downloading file:', error);
-        setDownloading(false);
-      });
+    // Add your download logic here
   }
 
   function copyToClipboard() {
     navigator.clipboard.writeText(dynamicUrl).then(
       () => {
         console.log('URL copied to clipboard');
+        shortenUrl(dynamicUrl);
         // Optionally show a success message or perform other actions
       },
       err => {
-        console.error('Error copying to clipboard:', err);
+        console.error('Error copying URL to clipboard:', err);
         // Optionally show an error message
       }
     );
@@ -81,14 +69,13 @@ export default function Home() {
               <p>
                 You can use the above m3u URL in OTT Navigator app to watch all channels.
               </p>
-              
-             <Message.Header>You cannot generate a permanent m3u file URL on localhost but you can download your m3u file:</Message.Header>
+              <Message.Header>You cannot generate a permanent m3u file URL on localhost but you can download your m3u file:</Message.Header>
               <p>
                 <Button primary onClick={() => downloadM3uFile('ts.m3u')} loading={downloading}>
                   Download m3u file
                 </Button>
               </p>
-              <p>The downloaded m3u file will be valid only for unlimited time.</p>
+              <p>The downloaded m3u file will be valid only for an unlimited time.</p>
               {/* Donation Button */}
               <p>
                 <Button color='yellow' onClick={() => window.open('upi://pay?pa=babidawka@okhdfdbank')}>
@@ -96,12 +83,6 @@ export default function Home() {
                 </Button>
               </p>
             </Message>
-            {err && (
-              <Message negative>
-                <Message.Header>Error</Message.Header>
-                <p>{err}</p>
-              </Message>
-            )}
             <p style={{ marginTop: '1rem' }}>
               <a href="https://github.com/lalitjoshi06/tataplay_url" target="_blank" rel="noreferrer">
                 View source code on Github
