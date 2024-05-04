@@ -72,7 +72,7 @@ const generateM3u = async (ud) => {
 };
 
 const refreshPlaylist = async () => {
-    const intervalMs = 10 * 60 * 1000; // 10 minutes
+    const intervalMs = 2 * 60 * 1000; // 2 minutes
     setInterval(async () => {
         await getUserChanDetails(); // Refresh HMAC token
     }, intervalMs);
